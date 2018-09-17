@@ -20,27 +20,48 @@ class BarGraph {
     this.y = d3.scaleLinear().rangeRound([this.height, 0]);
     this.property = {};
 
-    this.div = d3
+    this.tooltip = d3
       .select("body")
       .append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
+    this.axisstyle = {};
   }
 
   addProperty(property) {
     this.property = property;
   }
 
+  applyaxisstyle(dom, style) {
+    let line = dom.selectAll("line");
+    let path = dom.selectAll("path");
+    let text = dom.selectAll("text");
+    text.style("font-weight", "100");
+    let keys = Object.keys(style);
+    keys.map(key => {
+      line.style(key, style[key]);
+      path.style(key, style[key]);
+      text.style(key, style[key]);
+    });
+  }
+
+  applystyle(dom, style, kind) {
+    let keys = Object.keys(style[kind]);
+    keys.map(key => {
+      dom.style(key, style[kind][key]);
+    });
+  }
+
   insertData(data) {
     this.x.domain(
       data.map(function(d) {
-        return d.person;
+        return d.xvalue;
       })
     );
     this.y.domain([
       0,
       d3.max(data, function(d) {
-        return d.value;
+        return d.yvalue;
       }),
     ]);
 
@@ -50,37 +71,38 @@ class BarGraph {
       .enter()
       .append("rect")
       .attr("class", "bar")
+      .attr("rx", 1)
+      .attr("ry", 1)
       .attr("x", d => {
-        return this.x(d.person);
+        return this.x(d.xvalue);
       })
       .attr("width", this.x.bandwidth())
       .attr("y", d => {
-        return this.y(d.value);
+        return this.y(d.yvalue);
       })
       .attr("height", d => {
-        return this.height - this.y(d.value);
+        return this.height - this.y(d.yvalue);
       });
-    Object.keys(this.property).map(style => {
-      bar.style(style, this.property[style]);
-    });
+
+    this.applystyle(bar, this.property, "bar");
 
     let that = this;
 
     bar.on("mouseover", function(d) {
-      d3.select(this).style("fill", "black");
-      that.div
+      d3.select(this).style("fill", that.property["bar"]["hovercolor"]);
+      that.tooltip
         .transition()
         .duration(200)
         .style("opacity", 0.9);
-      that.div
-        .html("tooltip")
+      that.tooltip
+        .html(that.property["tooltip"]["body"])
         .style("left", d3.event.pageX + "px")
-        .style("top", d3.event.pageY - 28 + "px");
+        .style("top", d3.event.pageY + "px");
     });
 
     bar.on("mouseout", function(d) {
-      d3.select(this).style("fill", "red");
-      that.div
+      d3.select(this).style("fill", that.property["bar"]["fill"]);
+      that.tooltip
         .transition()
         .duration(500)
         .style("opacity", 0);
@@ -88,19 +110,52 @@ class BarGraph {
 
     bar.on("mousemove", function(d) {
       console.log(d);
-      var xPosition = d3.mouse(this)[0] - 5;
-      var yPosition = d3.mouse(this)[1] - 5;
-      that.div.style("left", xPosition + "px").style("top", yPosition + "px");
+      var xPosition = d3.mouse(this)[0] + 40;
+      var yPosition = d3.mouse(this)[1] - 10;
+      that.tooltip
+        .style("left", xPosition + "px")
+        .style("top", yPosition + "px");
     });
 
     // add the x Axis
-    this.svg
+    let xaxis = this.svg
       .append("g")
+      .attr("class", "axisRed")
       .attr("transform", "translate(0," + this.height + ")")
       .call(d3.axisBottom(this.x));
 
-    // add the y Axis
-    this.svg.append("g").call(d3.axisLeft(this.y));
+    let yaxis = this.svg.append("g").call(d3.axisLeft(this.y));
+
+    let title = this.svg
+      .append("text")
+      .attr("y", -10)
+      .attr("x", this.width / 2)
+      .text(this.property["title"]["text"]);
+
+    let ylabel = this.svg
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -40)
+      .attr("x", -this.height / 2)
+      .text(this.property["label"]["ytext"]);
+
+    let xlabel = this.svg
+      .append("text")
+      .attr("y", this.height + 40)
+      .attr("x", this.width / 2)
+      .text(this.property["label"]["xtext"]);
+
+    this.applystyle(xaxis.selectAll("line"), this.property, "axis");
+    this.applystyle(yaxis.selectAll("line"), this.property, "axis");
+    this.applystyle(xaxis.selectAll("path"), this.property, "axis");
+    this.applystyle(yaxis.selectAll("path"), this.property, "axis");
+    this.applystyle(xaxis.selectAll("text"), this.property, "axis");
+    this.applystyle(yaxis.selectAll("text"), this.property, "axis");
+
+    this.applystyle(xlabel, this.property, "label");
+    this.applystyle(ylabel, this.property, "label");
+
+    this.applystyle(title, this.property, "title");
   }
 }
 

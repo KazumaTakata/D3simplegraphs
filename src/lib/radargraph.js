@@ -17,6 +17,21 @@ class RadarChart {
 
     this.y = d3.scaleLinear().rangeRound([this.height, 0]);
 
+    this.interpolateTypes = [
+      d3.curveLinear,
+      d3.curveStepBefore,
+      d3.curveStepAfter,
+      d3.curveBasis,
+      d3.curveBasisOpen,
+      d3.curveBasisClosed,
+      d3.curveBundle,
+      d3.curveCardinal,
+      d3.curveCardinal,
+      d3.curveCardinalOpen,
+      d3.curveCardinalClosed,
+      d3.curveNatural,
+    ];
+
     this.cfg = {
       radius: 5,
       w: this.width,
@@ -127,6 +142,7 @@ class RadarChart {
     //   .call(wrap, cfg.wrapWidth);
     let radarLine = d3
       .radialLine()
+      .curve(this.interpolateTypes[3])
       .radius(function(d) {
         return rScale(d.value);
       })

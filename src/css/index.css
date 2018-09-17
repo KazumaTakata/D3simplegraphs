@@ -1,12 +1,17 @@
-div.tooltip {
+.tooltip {
   position: absolute;
   text-align: center;
-  width: 60px;
+  width: 50px;
   height: 28px;
-  padding: 2px;
+  padding: 1px;
   font: 12px sans-serif;
-  background: lightsteelblue;
+  background: rgb(132, 166, 211);
+  color: white;
   border: 0px;
   border-radius: 8px;
   pointer-events: none;
+}
+
+body {
+  font-family: sans-serif;
 }
