@@ -15,9 +15,9 @@ class BarGraph {
 
     this.x = d3
       .scaleBand()
-      .range([0, this.width])
+      .rangeRound([0, this.width])
       .padding(0.1);
-    this.y = d3.scaleLinear().range([this.height, 0]);
+    this.y = d3.scaleLinear().rangeRound([this.height, 0]);
     this.property = {};
 
     this.div = d3

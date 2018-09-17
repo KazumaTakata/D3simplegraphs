@@ -1,4 +1,4 @@
-import BarGraph from "./lib/simplesvgbar";
+import BarGraph from "./lib/bargraph";
 
 let bargraph = new BarGraph(".container", 400, 500, {
   left: 30,
