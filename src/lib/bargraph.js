@@ -32,19 +32,6 @@ class BarGraph {
     this.property = property;
   }
 
-  applyaxisstyle(dom, style) {
-    let line = dom.selectAll("line");
-    let path = dom.selectAll("path");
-    let text = dom.selectAll("text");
-    text.style("font-weight", "100");
-    let keys = Object.keys(style);
-    keys.map(key => {
-      line.style(key, style[key]);
-      path.style(key, style[key]);
-      text.style(key, style[key]);
-    });
-  }
-
   applystyle(dom, style, kind) {
     let keys = Object.keys(style[kind]);
     keys.map(key => {
@@ -120,7 +107,6 @@ class BarGraph {
     // add the x Axis
     let xaxis = this.svg
       .append("g")
-      .attr("class", "axisRed")
       .attr("transform", "translate(0," + this.height + ")")
       .call(d3.axisBottom(this.x));
 
