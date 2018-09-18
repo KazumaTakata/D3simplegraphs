@@ -12,7 +12,7 @@ class PieGraph {
       .attr("width", width)
       .attr("height", height)
       .append("g")
-      .attr("transform", "translate(" + this.radius + "," + this.radius + ")");
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
     this.color = d3
       .scaleOrdinal()
       .range(["#DC3912", "#3366CC", "#109618", "#FF9900", "#990099"]);
@@ -46,18 +46,29 @@ class PieGraph {
       .outerRadius(this.radius)
       .innerRadius(0);
 
+    let that = this;
     pieGroup
       .append("path")
       .attr("d", arc)
-      .attr("fill", d => {
-        return this.color(d.index);
-      })
+      .attr("fill", this.property["pie"]["fill"])
       .attr("opacity", 0.75)
-      .attr("stroke", "white");
+      .attr("stroke", "white")
+      .on("mouseover", function(d) {
+        d3
+          .select(this)
+          .transition()
+          .attr("fill", that.property["pie"]["hovercolor"]);
+      })
+      .on("mouseout", function(d) {
+        d3
+          .select(this)
+          .transition()
+          .attr("fill", that.property["pie"]["fill"]);
+      });
 
     pieGroup
       .append("text")
-      .attr("fill", "black")
+      .attr("fill", this.property["pie"]["text"]["fill"])
       .attr("transform", d => {
         return "translate(" + this.text.centroid(d) + ")";
       })
@@ -67,6 +78,13 @@ class PieGraph {
       .text(function(d) {
         return d.data.name;
       });
+
+    let title = this.svg
+      .append("text")
+      .attr("y", -this.radius - 30)
+      .attr("x", 0)
+      .text(this.property["title"]["text"])
+      .attr("text-anchor", "middle");
   }
 }
 
