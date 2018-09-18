@@ -1,8 +1,10 @@
 import * as d3 from "d3";
 import "../css/index.css";
+import AxisGraph from "./base/axisgraph";
 
-class LineGraph {
+class LineGraph extends AxisGraph {
   constructor(el, height, width, margin) {
+    super();
     this.width = width - margin.left - margin.right;
     this.height = height - margin.top - margin.bottom;
     let container = d3.select(el);
@@ -118,44 +120,7 @@ class LineGraph {
       });
 
     // add the x Axis
-    let xaxis = this.svg
-      .append("g")
-      .attr("transform", "translate(0," + this.height + ")")
-      .call(d3.axisBottom(this.x));
-
-    // add the y Axis
-    let yaxis = this.svg.append("g").call(d3.axisLeft(this.y));
-
-    let title = this.svg
-      .append("text")
-      .attr("y", -10)
-      .attr("x", this.width / 2)
-      .text(this.property["title"]["text"]);
-
-    let ylabel = this.svg
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", -40)
-      .attr("x", -this.height / 2)
-      .text(this.property["label"]["ytext"]);
-
-    let xlabel = this.svg
-      .append("text")
-      .attr("y", this.height + 40)
-      .attr("x", this.width / 2)
-      .text(this.property["label"]["xtext"]);
-
-    this.applystyle(xaxis.selectAll("line"), this.property, "axis");
-    this.applystyle(yaxis.selectAll("line"), this.property, "axis");
-    this.applystyle(xaxis.selectAll("path"), this.property, "axis");
-    this.applystyle(yaxis.selectAll("path"), this.property, "axis");
-    this.applystyle(xaxis.selectAll("text"), this.property, "axis");
-    this.applystyle(yaxis.selectAll("text"), this.property, "axis");
-
-    this.applystyle(xlabel, this.property, "label");
-    this.applystyle(ylabel, this.property, "label");
-
-    this.applystyle(title, this.property, "title");
+    this.setaxis();
   }
 }
 
