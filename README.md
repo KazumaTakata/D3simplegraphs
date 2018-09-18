@@ -1,6 +1,6 @@
 # D3simplegraphs
 
-This repository contain code to create 5 basic graphs (Bar, Line, Pie, Radar, Scatter).
+This repository contains code to create 5 basic graphs (Bar, Line, Pie, Radar, Scatter) with D3 .
 
 ## Getting Started
 
@@ -10,10 +10,6 @@ This code is written in ES6 syntax. You need webpack to transpile to old javascr
 
 ### Quick Start
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
 ```
 git clone https://github.com/KazumaTakata/D3simplegraphs.git
 cd D3simplegraphs
@@ -21,13 +17,15 @@ npm install
 webpack-dev-server
 ```
 
-## Versioning
+In src/lib dir, there are code to create basic graphs.
+In src dir, there are sample code to use code in src/lib.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+In default, you will see bar graph.
+If you want to see other graphs, you modify entry value of webpack.config.js (default index.js).
 
 ## Authors
 
-- **Billie Thompson** - _Initial work_ - [PurpleBooth](https://github.com/PurpleBooth)
+- **KazumaTakata** - _Initial work_ - [PurpleBooth](https://github.com/KazumaTakata)
 
 ## License
 
