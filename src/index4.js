@@ -4,7 +4,7 @@ let linegraph = new ScatterPlot(".container", 400, 500, {
   left: 60,
   right: 30,
   top: 30,
-  bottom: 30,
+  bottom: 60,
 });
 
 linegraph.addProperty({
