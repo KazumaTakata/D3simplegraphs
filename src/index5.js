@@ -1,5 +1,5 @@
+import "./css/index.css";
 import Radargraph from "./lib/radargraph";
-
 let radargraph = new Radargraph(".container", 400, 500, {
   left: 30,
   right: 30,

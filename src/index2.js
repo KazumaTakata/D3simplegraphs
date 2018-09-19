@@ -1,5 +1,5 @@
+import "./css/index.css";
 import LineGraph from "./lib/linegraph";
-
 let linegraph = new LineGraph(".container", 500, 500, {
   left: 60,
   right: 30,

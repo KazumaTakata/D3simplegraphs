@@ -25,8 +25,8 @@ If you want to see other graphs, you modify entry value of webpack.config.js (de
 
 ## Authors
 
-- **KazumaTakata** - _Initial work_ - [PurpleBooth](https://github.com/KazumaTakata)
+- **KazumaTakata**
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License.

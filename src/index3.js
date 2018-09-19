@@ -1,5 +1,5 @@
+import "./css/index.css";
 import Piechart from "./lib/piegraph";
-
 let linegraph = new Piechart(".container", 500, 500, {
   left: 30,
   right: 30,

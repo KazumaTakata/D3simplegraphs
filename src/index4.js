@@ -1,5 +1,5 @@
+import "./css/index.css";
 import ScatterPlot from "./lib/scatterplot";
-
 let linegraph = new ScatterPlot(".container", 400, 500, {
   left: 60,
   right: 30,
